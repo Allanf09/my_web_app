@@ -1,0 +1,16 @@
+{% extends 'apps/base.html' %}
+
+{% load bootstrap5 %}
+{% block content %}
+  
+  <p><h4>Editing body:</h4></p>
+  <form method="post" action="{% url 'apps:edit_body' body.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button type="submit" class="btn btn-success">SAVE</button>
+
+  </form>
+
+
+{% endblock content%}

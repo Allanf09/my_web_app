@@ -1,0 +1,33 @@
+{% extends 'apps/base.html' %}
+
+{% load bootstrap5 %}
+
+{% block content%}
+  <p><h3>Post:</h3></p>
+  <p><a href="{% url 'apps:post' post.id %}">{{ post }}</a></p>
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'apps:add_body' post.id %}">Add body</a></p>
+    <p><a href="{% url 'apps:delete_post' post.id %}">Delete Post</a></p>
+    <ul>
+    {% for body in bodies %}
+      <p><a href="{% url 'apps:edit_body' body.id %}">Edit text</a>
+      <li>{{ body.posted_at|date:'M d, Y H:i' }}</li> 
+      <li>{{ body.text|linebreaks }}</li>
+    {% empty %}
+      <li>No posts yet.</li>
+    {% endfor %}
+    </ul>
+
+  {% else %}
+
+    <ul>
+    {% for body in bodies %}
+      <li>{{ body.posted_at|date:'M d, Y H:i' }}</li> 
+      <li>{{ body.text|linebreaks }}</li>
+    {% empty %}
+      <li>No posts yet.</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock content %}
