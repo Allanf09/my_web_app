@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import fields
 
 from .models import Post, Body
 
@@ -14,3 +15,4 @@ class BodyForm(forms.ModelForm):
         fields = ['text']
         labels = {'text': 'body:'}
         widgets = {'text': forms.Textarea(attrs={'cols':80})}
+

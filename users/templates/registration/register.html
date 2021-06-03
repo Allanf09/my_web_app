@@ -1,53 +1,46 @@
 {% extends 'apps/base.html' %}
 
 {% load bootstrap5 %}
-{% load crispy_forms_tags %}
 
 {% load static %}
 
 {% block content %}
-<body>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-xl-5 mx-auto">
-        <div class="card card-signin flex-row my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center">Register</h5>
-            <form class="form-signin">
-              <div class="form-label-group">
-                <input type="text" id="inputUsername" class="form-control" placeholder="Username">
-                <label for="inputUsername">Username</label>
-                
-              </div>
 
-              <div class="form-label-group">
-                <input type="email" id="inputEmailAddress" class="form-control" placeholder="Email address" >
-                <label for="inputEmailAddress">Email address</label>
+  <body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
+    <div class="form-group">
+      <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card card-signin my-5">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Register</h5>
+                  <form class="form-signin">
+                    <div class="form-label-group">
+                      <input type="text" name="username" placeholder="Username" maxlength="150" autocomplete="username" required="" id="id_username">
+                    </div>
+                  </br>
+                    <div class="form-label-group">
+                      <input type="password" name="password1" placeholder="Password" required="" id="id_password1">
+                    </div>
+                  </br>
+                    <div class="form-label-group">
+                      <input type="password" name="password2" placeholder="Password Confirmation" required="" id="id_password2">
+                    </div>
+                  </br>
+                    <button class="btn btn-md btn-primary" type="submit">Register</button>
+                    <hr class="my-4">
+                  </form>
+                </div>
               </div>
-              
-              <hr>
-
-              <div class="form-label-group">
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password">
-                <label for="inputPassword">Password</label>
-              </div>
-              
-              <div class="form-label-group">
-                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
-                <label for="inputConfirmPassword">Confirm password</label>
-              </div>
-              
-              <button class="btn btn-lg btn-warning btn-block text-uppercase" type="submit">Register</button>
-            
-              
-            </form>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-  </div>
-</body>
+  </body>
  
 
 {% endblock content %}

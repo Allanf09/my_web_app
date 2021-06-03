@@ -142,3 +142,7 @@ LOGIN_REDIRECT_URL = 'apps:posts'
 LOGOUT_REDIRECT_URL = 'apps:home'
 
 LOGIN_URL = 'users:login'
+
+# heroku settings
+import django_heroku
+django_heroku.settings(locals())

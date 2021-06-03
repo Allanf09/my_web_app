@@ -1,8 +1,9 @@
 from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
-from .models import Post, Body
+from .models import Post, Body, Profile
 from .forms import PostForm, BodyForm
 
 
@@ -16,6 +17,7 @@ def posts(request):
 
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
+    
     bodies = post.body_set.order_by("posted_at")
     context = {'post': post, 'bodies': bodies}
     return render(request, 'apps/post.html', context)
@@ -26,9 +28,11 @@ def new_post(request):
         form = PostForm()
     else:
         form = PostForm(data=request.POST)
-
+        
         if form.is_valid():
-            form.save()
+            new_post = form.save(commit=False)
+            new_post.owner = request.user
+            new_post.save()
             return redirect('apps:posts')
 
     context = {'form': form}
@@ -36,6 +40,9 @@ def new_post(request):
 
 def add_body(request, post_id):
     post = Post.objects.get(id=post_id)
+    if post.owner != request.user:
+        raise Http404
+
 
     if request.method != 'POST':
         form = BodyForm()
@@ -54,7 +61,9 @@ def add_body(request, post_id):
 def edit_body(request, body_id):
     body = Body.objects.get(id=body_id)
     post = body.post
-    
+    if post.owner != request.user:
+        raise Http404
+
     if request.method != 'POST':
         form = BodyForm(instance=body)
     else:
@@ -69,6 +78,8 @@ def edit_body(request, body_id):
 
 def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
+    if post.owner != request.user:
+        raise Http404
 
     if request.method == 'POST':
         post.delete()
@@ -76,3 +87,5 @@ def delete_post(request, post_id):
     
     context = {'post': post}
     return render(request, 'apps/delete_post.html', context)
+
+

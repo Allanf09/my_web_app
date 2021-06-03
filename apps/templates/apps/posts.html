@@ -18,7 +18,7 @@
             <h4 class="card-title">
               <a href="{% url 'apps:post' post.id %}">{{ post }}</a>
             </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+            <p class="card-text">{{ post.posted_at }}</p>
           </div>
         </div>
       </div>
