@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import fields
 
-from .models import Post, Body
+from .models import Post, Body, Profile
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -15,4 +15,6 @@ class BodyForm(forms.ModelForm):
         fields = ['text']
         labels = {'text': 'body:'}
         widgets = {'text': forms.Textarea(attrs={'cols':80})}
+
+
 

@@ -131,7 +131,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
-    BASE_DIR/'my_app/static',
+    BASE_DIR/'static',
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -143,6 +143,4 @@ LOGOUT_REDIRECT_URL = 'apps:home'
 
 LOGIN_URL = 'users:login'
 
-# heroku settings
-import django_heroku
-django_heroku.settings(locals())
+

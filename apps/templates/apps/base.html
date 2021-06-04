@@ -44,7 +44,7 @@
                       Hello, {{ user.username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                      <li><a class="dropdown-item" href="">Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'users:user_profile' %}">Profile</a></li>
                       <li><a class="dropdown-item" href="{% url 'users:logout' %}">Sign out</a></li>
                   {% else %}
                     <li class="nav-item">
